@@ -27,4 +27,8 @@ public function user()
 {
     return $this->belongsTo(User::class);
 }
+public function getFullAddressAttribute()
+{
+    return "{$this->governorate}, {$this->city}, {$this->street}";
+}
 }

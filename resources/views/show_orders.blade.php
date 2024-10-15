@@ -9,6 +9,9 @@
                 <th>Order ID</th>
                 <th>User Name</th>
                 <th>Total Price</th>
+                <th>Governorate</th>
+                <th>City</th>
+                <th>Street</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +20,9 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->user ? $order->user->name : 'N/A' }}</td>
                     <td>{{ $order->total_price }}</td>
+                    <td>{{ $order->address ? $order->address->governorate : 'N/A' }}</td> <!-- عرض المحافظة -->
+                    <td>{{ $order->address ? $order->address->city : 'N/A' }}</td> <!-- عرض المدينة -->
+                    <td>{{ $order->address ? $order->address->street : 'N/A' }}</td> <!-- عرض الشارع -->
                 </tr>
             @endforeach
         </tbody>

@@ -178,15 +178,25 @@
                     <tr>
                         <th>User</th>
                         <th>Total Price</th>
+                        <th>Items Ordered</th>
+                        <th>Address</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $order)
-                    <tr>
-                        <td>{{ $order->user ? $order->user->name : 'N/A' }}</td>
-                        <td>{{ $order->total_price }}$</td>
-                    </tr>
-                @endforeach
+                    @foreach($orders as $order)
+    <tr>
+        <td>{{ $order->user->name }}</td>
+        <td>${{ $order->total_price }}</td>
+        <td>{{ implode(', ', $order->products->pluck('name')->toArray()) }}</td>
+        <td>
+            @if($order->address)
+                {{ $order->address->full_address }}
+            @else
+                No Address
+            @endif
+        </td>
+    </tr>
+    @endforeach
                 </tbody>
             </table>
         </div>

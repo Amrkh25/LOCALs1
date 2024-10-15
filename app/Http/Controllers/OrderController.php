@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('products')->get(); // جلب الطلبات مع المنتجات المرتبطة بها
+        $orders = Order::with('user', 'address','products')->latest()->get(); // جلب الطلبات مع المنتجات المرتبطة بها
         return view('show_orders', compact('orders')); // عرض الطلبات
     }
 }

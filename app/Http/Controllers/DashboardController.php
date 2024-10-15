@@ -14,7 +14,11 @@ class DashboardController extends Controller
     public function index()
     {
         $categories = Category::all(); // استرجاع جميع الأقسام
-        $orders = Order::with('user')->withCount('products')->get();
+        $orders = Order::with(['user', 'address']) // أضف 'address' لجلب المعلومات
+        ->withCount('products')
+        ->latest() // ترتيب الطلبات حسب الأحدث
+        ->take(20) // جلب آخر 20 طلب
+        ->get();
         $productsCount = Product::count(); // عدد المنتجات
         $ordersCount = Order::count(); // عدد الأوردرات المنفذة
         $usersCount = User::count(); // عدد المستخدمين
