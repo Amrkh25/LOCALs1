@@ -109,10 +109,11 @@
         @endif
     </div>
     <div class="text-center">
-        <form action="{{ route('cart.checkout') }}" method="POST">
+        <form action="{{ route('cart.checkout') }}" method="GET">
             @csrf
-            <button type="submit" class="btn btn-success" style="background-color: green; border-color: green;">Checkout</button>
+            <button type="submit" class="btn btn-success" style="background-color: green; border-color: green;">set address</button>
         </form>
     </div>
+
 @endsection
 

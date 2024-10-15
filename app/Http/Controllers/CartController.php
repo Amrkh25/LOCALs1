@@ -136,7 +136,7 @@ public function remove($id)
 
 //     return redirect()->back()->with('success', 'Your order has been placed successfully!');
 // }
-public function checkout()
+public function processCheckout(Request $request)
 {
     if (!Auth::check()) {
         return redirect()->back()->with('error', 'You need to log in to checkout.');
@@ -166,7 +166,14 @@ public function checkout()
         'total_price' => $totalPrice,
         'product_ids' => $cartItems->pluck('product_id')->implode(','),
     ]);
-
+    // إضافة العنوان إلى جدول العناوين
+    // إضافة العنوان إلى جدول العناوين
+    $order->address()->create([
+        'user_id' => $userId,
+        'governorate' => $request->governorate,
+        'city' => $request->city,
+        'street' => $request->street,
+    ]);
     // إضافة عناصر السلة إلى الطلب باستخدام علاقة many-to-many
     foreach ($cartItems as $item) {
         $order->products()->attach($item->product_id, [
@@ -179,6 +186,15 @@ public function checkout()
     $cart->delete();
 
     return redirect()->back()->with('success', 'Your order has been placed successfully!');
+}
+public function showAddressForm()
+{
+    $categories = Category::all();
+    if (!Auth::check()) {
+        return redirect()->back()->with('error', 'You need to log in to proceed with the checkout.');
+    }
+
+    return view('address_form',compact('categories')); // تأكد أن `address_form` هو اسم الـ blade الخاص بالنموذج.
 }
 
 }

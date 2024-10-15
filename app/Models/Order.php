@@ -31,5 +31,10 @@ class Order extends Model
                 ->withPivot('quantity', 'price') // يتضمن الحقول pivot (الكمية والسعر)
                 ->withTimestamps();
 }
+public function address()
+{
+    return $this->hasOne(Address::class);
+}
+
 
 }

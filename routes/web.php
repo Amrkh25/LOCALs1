@@ -30,7 +30,8 @@ Route::get('/show-contact', [ContactController::class, 'show'])->name('contacts.
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart/checkout', [CartController::class, 'showAddressForm'])->name('cart.checkout');
+Route::post('//cart/checkoutt', [CartController::class, 'processCheckout'])->name('cart.processCheckout');
 
 Route::get('/add-product', [ProductController::class, 'create'])->name('products.create');
 Route::post('/add-product', [ProductController::class, 'store'])->name('products.store');
